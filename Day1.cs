@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventCode2021Day1
+namespace AdventCode2021
 {
-    class DepthReading {
+    class D1DepthReading {
         private int depth = -1;
-        public DepthReading prevDepth;
+        public D1DepthReading prevDepth;
 
         public bool initialized {
             get {
@@ -20,17 +20,17 @@ namespace AdventCode2021Day1
             }
         }
 
-        public DepthReading(int iDepth) {
+        public D1DepthReading(int iDepth) {
             depth = iDepth;
         }
 
-        public DepthReading(string inputstring){
+        public D1DepthReading(string inputstring){
             if(!int.TryParse(inputstring, out depth)) {
                 depth = -2;
             }
         }
 
-        public void SetDepthReading(DepthReading pDepth) {
+        public void SetDepthReading(D1DepthReading pDepth) {
             prevDepth = pDepth;
         }
 
@@ -54,15 +54,15 @@ namespace AdventCode2021Day1
 
     }
 
-    class Sequence1 {
-        private List<DepthReading> Readings = new List<DepthReading>();
-        private DepthReading reading;
-        private DepthReading prevReading = null;
+    class D1P1Sequence {
+        private List<D1DepthReading> Readings = new List<D1DepthReading>();
+        private D1DepthReading reading;
+        private D1DepthReading prevReading = null;
 
-        public Sequence1(string inputstring) {
+        public D1P1Sequence(string inputstring) {
             string[] stringSeparators = new string[] { "\r\n" };
             foreach(string item in inputstring.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries)) {
-                reading = new DepthReading(item);
+                reading = new D1DepthReading(item);
                 if(prevReading == null) {
                     prevReading = reading;
                 } 
@@ -80,16 +80,16 @@ namespace AdventCode2021Day1
 
     }
 
-    class Sequence2 {
-        private List<DepthReading> Readings = new List<DepthReading>();
-        private DepthReading reading;
-        private DepthReading prevReading = null;
+    class D1P2Sequence {
+        private List<D1DepthReading> Readings = new List<D1DepthReading>();
+        private D1DepthReading reading;
+        private D1DepthReading prevReading = null;
 
-        public Sequence2(string inputstring) {
+        public D1P2Sequence(string inputstring) {
             string[] stringSeparators = new string[] { "\r\n" };
             string[] items = inputstring.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
             for(int i = 2;i < items.Count();i++) {
-                reading = new DepthReading(int.Parse(items[i-2]) + int.Parse(items[i-1]) + int.Parse(items[i]));
+                reading = new D1DepthReading(int.Parse(items[i-2]) + int.Parse(items[i-1]) + int.Parse(items[i]));
                 if(prevReading == null) {
                     prevReading = reading;
                 } 
@@ -107,15 +107,15 @@ namespace AdventCode2021Day1
 
     }
 
-    class Program
+    class Day1
     {
 
-        public static void DoDay1() {
+        public static void D1Main() {
             string inputstring;
-            inputstring = System.IO.File.ReadAllText(@".\Input\DayOneInput.txt");
-            Sequence1 sequence = new Sequence1(inputstring);
+            inputstring = System.IO.File.ReadAllText(@".\Input\Day1Input.txt");
+            D1P1Sequence sequence = new D1P1Sequence(inputstring);
             System.Console.WriteLine("Part 1: Readings Lower than Previous: {0}", sequence.GetLower);
-            Sequence2 sequence2 = new Sequence2(inputstring);
+            D1P2Sequence sequence2 = new D1P2Sequence(inputstring);
             System.Console.WriteLine("Part 2: Readings Lower than Previous: {0}", sequence2.GetLower);
        }
 

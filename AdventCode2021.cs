@@ -5,8 +5,9 @@
     {
         static void Main(string[] args)
         {
-            //AdventCode2021Day1.Program.DoDay1();
-            AdventCode2021Day2.Program.DoDay2();
+            //AdventCode2021.Day1.Main();
+            //AdventCode2021.Day2.D2Main();
+            AdventCode2021.Day3.D3Main();
         }
     }
 
