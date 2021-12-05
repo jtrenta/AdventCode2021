@@ -1,37 +1,44 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Globals.Day5Constants;
 
 namespace AdventCode2021
 {
 
-    public static class P {
-        public const int X1 = 0;
-        public const int Y1 = 1;
-        public const int X2 = 2;
-        public const int Y2 = 3;
-    }
-
     class Line {
-        private string raw;
         private int[] points = new int[4];
         private int slope;
-        bool vertical = false;
 
         public Line(string inputstring)  {
-            raw = inputstring;
-            points = Array.ConvertAll(raw.Replace(" -> ", ",").Split(','), s => int.Parse(s));
-            if(points[P.X1] == points[P.X2]) { 
-                vertical = true; 
-            } else {
-                slope = (points[P.Y2]-points[P.Y1])/(points[P.X2]-points[P.X1]);
+            points = Array.ConvertAll(inputstring.Replace(" -> ", ",").Split(','), s => int.Parse(s));
+            if(points[X1] != points[X2]) { 
+                slope = (points[Y2]-points[Y1])/(points[X2]-points[X1]);
             }
         }
 
-        public bool Intersects(int x, int y, bool part1) {
-            if((points[P.X1] == points[P.X2] || points[P.Y1] == points[P.Y2]) || !part1) {
-                if(((x >= points[P.X1] && x<= points[P.X2]) || (x >= points[P.X2] && x<= points[P.X1])) && ((y >= points[P.Y1] && y<= points[P.Y2]) || (y >= points[P.Y2] && y<= points[P.Y1]))) {
-                    if((!vertical && (y - points[P.Y1]) == (slope * (x - points[P.X1]))) || (vertical && x == points[P.X1])) {  
+        private bool vertical {
+            get {
+                return points[X1] == points[X2];
+            }
+        }
+
+        private bool InRange(int x, int y) {
+            return (    ((x >= points[X1] && x<= points[X2]) || (x >= points[X2] && x<= points[X1])) 
+                    &&  ((y >= points[Y1] && y<= points[Y2]) || (y >= points[Y2] && y<= points[Y1])) );
+        }
+
+        private bool StraightLine {
+            get {
+                return points[X1] == points[X2] || points[Y1] == points[Y2];
+            }
+        }
+
+        public bool Intersects(int x, int y, bool checkDiagonals) {
+            if(StraightLine || checkDiagonals) {
+                if(InRange(x, y)) {
+                    if(     (!vertical && (y - points[Y1]) == (slope * (x - points[X1]))) 
+                        ||  ( vertical && x == points[X1])) {  
                         return true;
                     }
                 }
@@ -55,14 +62,14 @@ namespace AdventCode2021
             }
             for(int x=0;x<=maxSize;x++) {
                 for(int y=0;y<=maxSize;y++) {
-                    if(lines.Where(l => l.Intersects(x, y, true)).Count() > 1) numDangerZones++;
+                    if(lines.Where(l => l.Intersects(x, y, false)).Count() > 1) numDangerZones++;
                 }
             }
             System.Console.WriteLine("Part 1: Number of dangerous zones is {0}", numDangerZones);
             numDangerZones = 0;
             for(int x=0;x<=maxSize;x++) {
                 for(int y=0;y<=maxSize;y++) {
-                    if(lines.Where(l => l.Intersects(x, y, false)).Count() > 1) numDangerZones++;
+                    if(lines.Where(l => l.Intersects(x, y, true)).Count() > 1) numDangerZones++;
                 }
             }
             System.Console.WriteLine("Part 2: Number of dangerous zones is {0}", numDangerZones);
