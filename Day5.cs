@@ -55,23 +55,29 @@ namespace AdventCode2021
             List<Line> lines = new List<Line>();
             int numDangerZones = 0;
             int maxSize = 0;
+
             inputstring = System.IO.File.ReadAllText(@".\Input\Day5Input.txt");
             maxSize = Array.ConvertAll(inputstring.Replace("\r\n", ",").Replace(" -> ", ",").Split(","), s => int.Parse(s)).Max();
+
             foreach(string item in inputstring.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)) {
                 lines.Add(new Line(item));
             }
+
             for(int x=0;x<=maxSize;x++) {
                 for(int y=0;y<=maxSize;y++) {
                     if(lines.Where(l => l.Intersects(x, y, false)).Count() > 1) numDangerZones++;
                 }
             }
+
             System.Console.WriteLine("Part 1: Number of dangerous zones is {0}", numDangerZones);
             numDangerZones = 0;
+
             for(int x=0;x<=maxSize;x++) {
                 for(int y=0;y<=maxSize;y++) {
                     if(lines.Where(l => l.Intersects(x, y, true)).Count() > 1) numDangerZones++;
                 }
             }
+
             System.Console.WriteLine("Part 2: Number of dangerous zones is {0}", numDangerZones);
        }
 
