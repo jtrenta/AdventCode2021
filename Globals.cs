@@ -11,11 +11,6 @@ namespace Globals {
         public const int Y2 = 3;
     }
 
-    // public static class Day11Constants {
-    //     public const int[][] adjacencyMatrix2 = new const int[8][]{ new int[2] { -1, -1 }, new int[2] { -1, 0 }, new int[2] { -1, 1 }, new int[2] { 0, -1 }, new int[2] { 0, 1 }, new int[2] { 1, -1 }, new int[2] { 1, 0 }, new int[2] { 1, 1 } };
-
-    // }
-
     public static class Day12Constants {
         public const bool SMALL = false;
         public const bool LARGE = true;

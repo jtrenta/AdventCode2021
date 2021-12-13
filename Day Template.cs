@@ -9,8 +9,12 @@ namespace AdventCode2021
     {
 
         public static void DNumMain() {
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
             string inputstring;
             inputstring = System.IO.File.ReadAllText(@".\Input\DayNumInput.txt");
+            System.Console.WriteLine("Execution time: {0} ms",watch.ElapsedMilliseconds);
+
        }
 
     }

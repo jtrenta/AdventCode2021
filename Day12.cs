@@ -109,7 +109,7 @@ namespace AdventCode2021
                 BuildPath(paths, currentPath.ToList(), n, part == 1);
             }
 
-            //Return all distinct paths that end at the end
+            //Return all paths that end at the end
             return paths.Where(p => p.Last().isEnd).ToList().Count();
         }
 
