@@ -7,6 +7,14 @@ namespace AdventCode2021
 
     class Day11
     {
+        static readonly int[][] adjacencyMatrix = new int[8][]{ new int[2] { -1, -1 }, 
+                                                                new int[2] { -1, 0 }, 
+                                                                new int[2] { -1, 1 }, 
+                                                                new int[2] { 0, -1 }, 
+                                                                new int[2] { 0, 1 }, 
+                                                                new int[2] { 1, -1 }, 
+                                                                new int[2] { 1, 0 }, 
+                                                                new int[2] { 1, 1 } };
 
         public static void D11Main() {
             string inputstring;
@@ -76,21 +84,19 @@ namespace AdventCode2021
        }
 
        static int Flash(int x, int y, int[,] octopii) {
-            int flashes = 0;
-            int[,] adjacencyMatrix = new int[8,2]{ { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { 1, 1 } };
-            flashes++;
+            int flashes = 1;
             
             //Set octopus value to min int so no further adjacent flashes will trigger it again
             octopii[x,y] = int.MinValue;
 
             //Increment all adjacent octopii
-            for(int k = 0;k<8;k++) {
-                if(x+adjacencyMatrix[k,0] >= 0 && y+adjacencyMatrix[k,1] >= 0 && x+adjacencyMatrix[k,0] < octopii.GetLength(0) && y+adjacencyMatrix[k,1] < octopii.GetLength(1)) {
-                    octopii[x+adjacencyMatrix[k,0],y+adjacencyMatrix[k,1]]++;
+            foreach(int[] m in Day11.adjacencyMatrix) {
+                if(x+m[0] >= 0 && y+m[1] >= 0 && x+m[0] < octopii.GetLength(0) && y+m[1] < octopii.GetLength(1)) {
+                    octopii[x+m[0],y+m[1]]++;
 
                     //If adjacent octopus hits 10+, recursively flash
-                    if(octopii[x+adjacencyMatrix[k,0],y+adjacencyMatrix[k,1]] > 9) {
-                        flashes += Flash(x+adjacencyMatrix[k,0],y+adjacencyMatrix[k,1],octopii);
+                    if(octopii[x+m[0],y+m[1]] > 9) {
+                        flashes += Flash(x+m[0],y+m[1],octopii);
                     }
                 }
             }
