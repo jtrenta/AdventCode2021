@@ -19,7 +19,8 @@
             //AdventCode2021.Day12.D12Main();
             //AdventCode2021.Day13.D13Main();
             //AdventCode2021.Day14.D14Main();
-            AdventCode2021.Day15.D15Main();
+            //AdventCode2021.Day15.D15Main();
+            AdventCode2021.Day16.D16Main();
         }
     }
 
